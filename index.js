@@ -1,7 +1,8 @@
 var config = require('./src/config');
 var getConfigured = config.get.bind(config);
 
-var app = express();
+var http = require('http');
+var app = require('express')();
 var initCrashReporter = require('crash-reporter-middleware');
 
 initCrashReporter(getConfigured, app)
