@@ -7,4 +7,11 @@ var appKeySchema = new mongoose.Schema({
 
 var AppKey = mongoose.model('AppKey', appKeySchema);
 
+AppKey.saveDummy = function saveDummy() {
+  var newAppKey = new AppKey({
+    name: 'dummy'
+  });
+  return newAppKey.save();
+};
+
 module.exports = AppKey;
