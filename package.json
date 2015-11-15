@@ -1,7 +1,7 @@
 {
   "name": "crash-store",
   "version": "1.0.0",
-  "description": "Stores JavaScript exceptions",
+  "description": "Receives and stores JavaScript exceptions",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
