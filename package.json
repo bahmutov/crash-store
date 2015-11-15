@@ -29,10 +29,9 @@
     "bluebird": "3.0.5",
     "check-more-types": "2.1.2",
     "crash-reporter-middleware": "1.2.7",
+    "crash-store-db": "1.0.0",
     "express": "4.13.3",
-    "kerberos": "0.0.17",
     "lazy-ass": "1.0.0",
-    "mongoose": "4.2.5",
     "nconf": "0.8.2"
   },
   "config": {
