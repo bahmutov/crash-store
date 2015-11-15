@@ -12,7 +12,13 @@ initCrashReporter(getConfigured, app)
       app.use(crashMiddleware);
     }
 
-    var port = getConfigured('PORT');
-    http.createServer(app).listen(port);
-    console.log('listening at port %d', port);
+    var dbInit = require('./src/db');
+    dbInit.then(function (db) {
+      var port = getConfigured('PORT');
+      http.createServer(app).listen(port);
+      console.log('listening at port %d', port);
+    }, function (err) {
+      console.error(err);
+      process.exit(-1);
+    });
   });
