@@ -1,3 +1,5 @@
+// load config first,
+// before any dependency tries to load its configuration
 var config = require('./src/config');
 var getConfigured = config.get.bind(config);
 
