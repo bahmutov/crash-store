@@ -21,5 +21,10 @@
   "bugs": {
     "url": "https://github.com/bahmutov/crash-store/issues"
   },
-  "homepage": "https://github.com/bahmutov/crash-store#readme"
+  "homepage": "https://github.com/bahmutov/crash-store#readme",
+  "dependencies": {
+    "crash-reporter-middleware": "1.2.7",
+    "express": "4.13.3",
+    "nconf": "0.8.2"
+  }
 }
