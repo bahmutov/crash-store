@@ -1,35 +1,35 @@
 // load config first,
 // before any dependency tries to load its configuration
 var config = require('./src/config');
-var getConfigured = config.get.bind(config);
-
-var http = require('http');
-var app = require('express')();
-var initCrashReporter = require('crash-reporter-middleware');
 
 var la = require('lazy-ass');
 var check = require('check-more-types');
 
 var dataStoreInit = require('crash-store-db');
 la(check.fn(dataStoreInit), 'expected crash store fn', dataStoreInit);
+var listenerInit = require('./src/listener');
 
-initCrashReporter(getConfigured, app)
-  .then(function (crashMiddleware) {
-    if (crashMiddleware) {
-      console.log('using crash reporter middleware');
-      app.use(crashMiddleware);
-    }
+var dataStore, crashEmitter;
 
-    dataStoreInit().then(function (store) {
-      la(check.has(store, 'api'), 'missing api object', store);
-      console.log('got data store with methods', Object.keys(store.api));
+function checkDataStore(store) {
+  la(check.has(store, 'api'), 'missing api object', store);
+  console.log('got data store with methods', Object.keys(store.api));
+  dataStore = store.api;
+}
 
-      var port = getConfigured('PORT');
-      http.createServer(app).listen(port);
-      console.log('listening at port %d', port);
+function checkCrashEmitter(emitter) {
+  la(check.object(emitter), 'missing crash event emitter', emitter);
+  la(check.fn(emitter.on), 'missing on method in crash emitter', emitter);
+  crashEmitter = emitter;
+}
 
-    }, function (err) {
-      console.error(err);
-      process.exit(-1);
-    });
-  });
+function finalHandler(err) {
+  console.error(err);
+  process.exit(-1);
+}
+
+dataStoreInit()
+  .then(checkDataStore)
+  .then(listenerInit)
+  .then(checkCrashEmitter)
+  .catch(finalHandler);
