@@ -21,7 +21,8 @@ initCrashReporter(getConfigured, app)
     }
 
     dataStoreInit().then(function (store) {
-      console.log('got data store with methods', Object.keys(store));
+      la(check.has(store, 'api'), 'missing api object', store);
+      console.log('got data store with methods', Object.keys(store.api));
 
       var port = getConfigured('PORT');
       http.createServer(app).listen(port);
