@@ -1,5 +1,7 @@
 var config = require('./config');
 var mongoose = require('mongoose');
+var Promise = mongoose.Promise = require('bluebird');
+
 var la = require('lazy-ass');
 var check = require('check-more-types');
 
@@ -9,7 +11,6 @@ var address = uri.substr(uri.indexOf('@') + 1);
 console.log('MongoDB at %s', address);
 
 mongoose.connect(config.get('MONGOLAB_URI'));
-var Promise = require('bluebird');
 
 var db = mongoose.connection;
 
