@@ -7,7 +7,8 @@
     "test": "eslint index.js src/**/*.js",
     "issues": "git-issues",
     "commit": "git-issues && commit-wizard",
-    "start": "node index.js"
+    "start": "node index.js",
+    "watch": "nodemon"
   },
   "repository": {
     "type": "git",
@@ -27,10 +28,10 @@
   "homepage": "https://github.com/bahmutov/crash-store#readme",
   "dependencies": {
     "bluebird": "3.0.5",
-    "body-parser": "1.14.1",
     "check-more-types": "2.1.2",
     "crash-reporter-middleware": "1.2.7",
     "crash-store-db": "1.1.1",
+    "error-receiver": "1.4.0",
     "express": "4.13.3",
     "lazy-ass": "1.0.0",
     "nconf": "0.8.2"
@@ -50,6 +51,7 @@
   "devDependencies": {
     "eslint": "1.9.0",
     "git-issues": "1.1.0",
+    "nodemon": "1.8.1",
     "pre-git": "1.2.11"
   }
 }

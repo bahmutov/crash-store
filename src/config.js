@@ -8,6 +8,7 @@ if (!nconf.configured) {
     .env()
     .file({ file: __dirname + '/../dev-config.json' })
     .defaults({
+      HOST: '127.0.0.1',
       PORT: 3010,
       MONGOLAB_URI: ''
     });

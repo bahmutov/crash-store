@@ -6,12 +6,13 @@ var check = require('check-more-types');
 la(check.object(config), 'missing config object');
 
 /* eslint no-console:0 */
-
+var errorReceiver = require('error-receiver');
 var dataStoreInit = require('crash-store-db');
 la(check.fn(dataStoreInit), 'expected crash store fn', dataStoreInit);
+
 var listenerInit = require('./src/listener');
 
-var dataStore, crashEmitter;
+var dataStore;
 
 function checkDataStore(store) {
   la(check.has(store, 'api'), 'missing api object', store);
@@ -19,20 +20,16 @@ function checkDataStore(store) {
   dataStore = store.api;
 }
 
-function checkCrashEmitter(emitter) {
-  la(check.object(emitter), 'missing crash event emitter', emitter);
-  la(check.fn(emitter.on), 'missing on method in crash emitter', emitter);
-  crashEmitter = emitter;
-}
-
 function connectEmitterToStore() {
-  la(check.object(crashEmitter), 'missing crash event emitter', crashEmitter);
+  la(check.object(errorReceiver.crashEmitter),
+    'missing crash event emitter', errorReceiver);
   la(check.object(dataStore), 'missing data store', dataStore);
   la(check.fn(dataStore.storeException), 'missing data store save method', dataStore);
 
-  crashEmitter.on('crash', function (crashInfo) {
+  errorReceiver.crashEmitter.on('crash', function (crashInfo) {
     console.log('crash emitter on crash handler');
     la(check.object(crashInfo), 'invalid crashInfo', crashInfo);
+
     dataStore.storeException(crashInfo)
       .catch(function (err) {
         console.error('could not store crash info');
@@ -50,7 +47,6 @@ function finalHandler(err) {
 
 dataStoreInit()
   .then(checkDataStore)
-  .then(listenerInit)
-  .then(checkCrashEmitter)
+  .then(listenerInit.bind(null, errorReceiver.middleware))
   .then(connectEmitterToStore)
   .catch(finalHandler);
