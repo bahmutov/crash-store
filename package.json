@@ -32,7 +32,7 @@
     "check-more-types": "2.1.2",
     "crash-reporter-middleware": "1.2.7",
     "crash-store-db": "1.1.1",
-    "error-receiver": "1.5.0",
+    "error-receiver": "1.7.0",
     "express": "4.13.3",
     "lazy-ass": "1.0.0",
     "nconf": "0.8.2"

@@ -20,19 +20,23 @@ function checkDataStore(store) {
   dataStore = store.api;
 }
 
-function connectEmitterToStore() {
-  la(check.object(errorReceiver.crashEmitter),
+function connectEmitterToStore(crashEmitter) {
+  la(check.object(crashEmitter),
     'missing crash event emitter', errorReceiver);
   la(check.object(dataStore), 'missing data store', dataStore);
   la(check.fn(dataStore.storeException), 'missing data store save method', dataStore);
 
-  errorReceiver.crashEmitter.on('crash', function (crashInfo) {
+  crashEmitter.on('crash', function (crashInfo) {
     console.log('crash emitter on crash handler');
     la(check.object(crashInfo), 'invalid crashInfo', crashInfo);
+    la(check.has(crashInfo, 'apiKey'), 'missing api key in', crashInfo);
 
     dataStore.storeException(crashInfo)
+      .then(function () {
+        console.log('stored crash info successfully for %s', crashInfo.apiKey);
+      })
       .catch(function (err) {
-        console.error('could not store crash info');
+        console.error('could not store crash info for %s', crashInfo.apiKey);
         console.error(err);
       });
   });
@@ -48,5 +52,5 @@ function finalHandler(err) {
 dataStoreInit()
   .then(checkDataStore)
   .then(listenerInit.bind(null, errorReceiver.middleware))
-  .then(connectEmitterToStore)
+  .then(connectEmitterToStore.bind(null, errorReceiver.crashEmitter))
   .catch(finalHandler);

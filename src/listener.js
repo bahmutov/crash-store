@@ -26,10 +26,14 @@ function startServer(errorMiddleware) {
     la(check.positiveNumber(port), 'invalid port', port);
 
     http.createServer(app).listen(port, hostname);
+
+    var apiKeyNames = getConfigured('apiKeyNames');
+    la(check.array(apiKeyNames), 'expected list of allowed api keys', apiKeyNames);
+
     console.log('listening at port %d', port);
     console.log('to test use httpie https://github.com/jkbrzt/httpie');
     console.log('http POST %s:%d%s?%s=demo foo=bar Details=\'"nice"\'',
-      hostname, port, getConfigured('apiUrl'), getConfigured('apiKey'));
+      hostname, port, getConfigured('apiUrl'), apiKeyNames[0]);
   }
 
   app.use(errorMiddleware);
