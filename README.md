@@ -7,6 +7,8 @@
 [![Build status][crash-store-ci-image] ][crash-store-ci-url]
 [![semantic-release][semantic-image] ][semantic-url]
 
+Temp API server running at [https://crash-store.herokuapp.com/](https://crash-store.herokuapp.com/)
+
 ### Small print
 
 Author: Gleb Bahmutov &copy; 2015

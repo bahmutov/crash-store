@@ -20,20 +20,18 @@ function startServer(errorMiddleware) {
   }
 
   function startListening() {
-    var hostname = getConfigured('HOST');
-    la(check.unemptyString(hostname), 'invalid hostname', hostname);
     var port = getConfigured('PORT');
     la(port, 'invalid port', port);
 
-    http.createServer(app).listen(port, hostname);
+    http.createServer(app).listen(port);
 
     var apiKeyNames = getConfigured('apiKeyNames');
     la(check.array(apiKeyNames), 'expected list of allowed api keys', apiKeyNames);
 
     console.log('listening at port %d', port);
     console.log('to test use httpie https://github.com/jkbrzt/httpie');
-    console.log('http POST %s:%d%s?%s=demo foo=bar Details=\'"nice"\'',
-      hostname, port, getConfigured('apiUrl'), apiKeyNames[0]);
+    console.log('http POST <hostname>:%d%s?%s=demo foo=bar Details=\'"nice"\'',
+      port, getConfigured('apiUrl'), apiKeyNames[0]);
   }
 
   app.use(errorMiddleware);
