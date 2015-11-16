@@ -22,8 +22,8 @@ function startServer(errorMiddleware) {
   function startListening() {
     var hostname = getConfigured('HOST');
     la(check.unemptyString(hostname), 'invalid hostname', hostname);
-    var port = Number(getConfigured('PORT'));
-    la(check.positiveNumber(port), 'invalid port', port);
+    var port = getConfigured('PORT');
+    la(port, 'invalid port', port);
 
     http.createServer(app).listen(port, hostname);
 
