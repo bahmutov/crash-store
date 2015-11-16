@@ -1,3 +1,5 @@
+/* eslint no-console:0 */
+
 var config = require('./config');
 var getConfigured = config.get.bind(config);
 
@@ -105,6 +107,8 @@ function initListener() {
 
   function startListening() {
     var port = getConfigured('PORT');
+    la(check.positiveNumber(port), 'invalid port', port);
+
     http.createServer(app).listen(port);
     console.log('listening at port %d', port);
     console.log('to test use httpie https://github.com/jkbrzt/httpie');

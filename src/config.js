@@ -2,6 +2,7 @@ var nconf = require('nconf');
 
 // nconf could be configured by an actual application
 if (!nconf.configured) {
+  /* eslint no-console:0 */
   console.log('configuring %s', require('../package.json').name);
   nconf.argv()
     .env()

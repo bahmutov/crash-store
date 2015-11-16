@@ -4,7 +4,7 @@
   "description": "Receives and stores JavaScript exceptions",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "eslint index.js src/**/*.js",
     "issues": "git-issues",
     "commit": "git-issues && commit-wizard",
     "start": "node index.js"
@@ -38,7 +38,7 @@
   "config": {
     "pre-git": {
       "commit-msg": "validate-commit-msg",
-      "pre-commit": [],
+      "pre-commit": "npm test",
       "pre-push": [],
       "post-commit": [],
       "post-merge": []
@@ -48,6 +48,7 @@
     "path": "node_modules/cz-conventional-changelog"
   },
   "devDependencies": {
+    "eslint": "1.9.0",
     "git-issues": "1.1.0",
     "pre-git": "1.2.11"
   }

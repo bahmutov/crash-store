@@ -1,9 +1,11 @@
 // load config first,
 // before any dependency tries to load its configuration
 var config = require('./src/config');
-
 var la = require('lazy-ass');
 var check = require('check-more-types');
+la(check.object(config), 'missing config object');
+
+/* eslint no-console:0 */
 
 var dataStoreInit = require('crash-store-db');
 la(check.fn(dataStoreInit), 'expected crash store fn', dataStoreInit);
