@@ -4,6 +4,7 @@
   "main": "index.js",
   "version": "0.0.0-semantic-release",
   "scripts": {
+    "lint": "eslint index.js src/**/*.js",
     "test": "eslint index.js src/**/*.js",
     "issues": "git-issues",
     "commit": "git-issues && commit-wizard",
@@ -40,7 +41,10 @@
   "config": {
     "pre-git": {
       "commit-msg": "validate-commit-msg",
-      "pre-commit": "npm test",
+      "pre-commit": [
+        "npm run lint",
+        "npm test"
+      ],
       "pre-push": [],
       "post-commit": [],
       "post-merge": []
