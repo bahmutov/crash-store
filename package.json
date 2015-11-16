@@ -1,18 +1,19 @@
 {
   "name": "crash-store",
-  "version": "1.0.0",
   "description": "Receives and stores JavaScript exceptions",
   "main": "index.js",
+  "version": "0.0.0-semantic-release",
   "scripts": {
     "test": "eslint index.js src/**/*.js",
     "issues": "git-issues",
     "commit": "git-issues && commit-wizard",
     "start": "node index.js",
-    "watch": "nodemon"
+    "watch": "nodemon",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bahmutov/crash-store.git"
+    "url": "https://github.com/bahmutov/crash-store.git"
   },
   "keywords": [
     "crash",
@@ -31,7 +32,7 @@
     "check-more-types": "2.1.2",
     "crash-reporter-middleware": "1.2.7",
     "crash-store-db": "1.1.1",
-    "error-receiver": "1.4.0",
+    "error-receiver": "1.5.0",
     "express": "4.13.3",
     "lazy-ass": "1.0.0",
     "nconf": "0.8.2"
@@ -52,6 +53,7 @@
     "eslint": "1.9.0",
     "git-issues": "1.1.0",
     "nodemon": "1.8.1",
-    "pre-git": "1.2.11"
+    "pre-git": "1.2.11",
+    "semantic-release": "^4.3.5"
   }
 }
