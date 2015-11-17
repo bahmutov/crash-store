@@ -10,15 +10,8 @@
     h&&h(b,c,d,f,g),g||(g=new Error(b)),a[e].q=a[e].q||[],a[e].q.push({
     e:g})}}(window,document,"script","https://cdn.raygun.io/raygun4js/raygun.js","rg4js");
   </script>
-  <script>
-    rg4js('apiKey', 'demo-api-key');
-    rg4js('enableCrashReporting', true);
-    rg4js('options', {
-      apiUrl: 'https://crash-store.herokuapp.com/crash'
-    });
-  </script>
   <style>
-  #example {
+  #example, #configuration {
     margin: 10px 0px;
     display: block;
     white-space: pre;
@@ -33,7 +26,20 @@ Uses <a href="https://github.com/MindscapeHQ/raygun4js">raygun4js</a> library
 to send caught JavaScript errors to our server
 <a href="https://github.com/bahmutov/error-receiver">error-receiver</a>.
 </p>
+<p>Client configuration</p>
+<script id="configuration">
+  (function configureErrorReporting() {
+    var serverUrl = window.location.href;
+    // usually "http://localhost:3010/"
+    rg4js('apiKey', 'demo-api-key');
+    rg4js('enableCrashReporting', true);
+    rg4js('options', {
+      apiUrl: serverUrl + 'crash'
+    });
+  }());
+</script>
 <script src="https://rawgit.com/bahmutov/console-log-div/master/console-log-div.js"></script>
+<p>Script that throws an error on purpose</p>
 <script id="example">
   throw new Error('This is wrong');
 </script>
