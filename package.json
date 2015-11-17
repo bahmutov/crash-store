@@ -32,7 +32,7 @@
     "bluebird": "3.0.5",
     "check-more-types": "2.1.2",
     "crash-reporter-middleware": "1.2.7",
-    "crash-store-db": "1.1.1",
+    "crash-store-db": "1.2.0",
     "error-receiver": "1.7.0",
     "express": "4.13.3",
     "lazy-ass": "1.0.0",

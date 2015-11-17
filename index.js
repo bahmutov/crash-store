@@ -14,9 +14,17 @@ var listenerInit = require('./src/listener');
 
 var dataStore;
 
+var dataStoreSchema = {
+  addApplicationKey: check.fn,
+  isValidApplicationKey: check.fn,
+  saveCrash: check.fn
+};
+var isValidStore = check.schema.bind(null, dataStoreSchema);
+
 function checkDataStore(store) {
   la(check.has(store, 'api'), 'missing api object', store);
   console.log('got data store with methods', Object.keys(store.api));
+  la(isValidStore(store.api), 'invalid store api', Object.keys(store.api));
   dataStore = store.api;
 }
 
@@ -24,14 +32,13 @@ function connectEmitterToStore(crashEmitter) {
   la(check.object(crashEmitter),
     'missing crash event emitter', errorReceiver);
   la(check.object(dataStore), 'missing data store', dataStore);
-  la(check.fn(dataStore.storeException), 'missing data store save method', dataStore);
 
   crashEmitter.on('crash', function (crashInfo) {
     console.log('crash emitter on crash handler');
     la(check.object(crashInfo), 'invalid crashInfo', crashInfo);
     la(check.has(crashInfo, 'apiKey'), 'missing api key in', crashInfo);
 
-    dataStore.storeException(crashInfo)
+    dataStore.saveCrash(crashInfo.apiKey, crashInfo)
       .then(function () {
         console.log('stored crash info successfully for %s', crashInfo.apiKey);
       })
