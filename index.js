@@ -26,6 +26,11 @@ function checkDataStore(store) {
   console.log('got data store with methods', Object.keys(store.api));
   la(isValidStore(store.api), 'invalid store api', Object.keys(store.api));
   dataStore = store.api;
+  return dataStore;
+}
+
+function initErrorReceiver(dataStore) {
+  return errorReceiver.middleware.bind(null, dataStore.isValidApplicationKey);
 }
 
 function connectEmitterToStore(crashEmitter) {
@@ -58,6 +63,7 @@ function finalHandler(err) {
 
 dataStoreInit()
   .then(checkDataStore)
-  .then(listenerInit.bind(null, errorReceiver.middleware))
+  .then(initErrorReceiver)
+  .then(listenerInit)
   .then(connectEmitterToStore.bind(null, errorReceiver.crashEmitter))
   .catch(finalHandler);

@@ -10,7 +10,8 @@
     "commit": "git-issues && commit-wizard",
     "start": "node index.js",
     "watch": "nodemon",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post",
+    "quick-install": "npm install --production"
   },
   "repository": {
     "type": "git",
@@ -32,8 +33,8 @@
     "bluebird": "3.0.5",
     "check-more-types": "2.1.2",
     "crash-reporter-middleware": "1.2.7",
-    "crash-store-db": "1.2.0",
-    "error-receiver": "1.7.0",
+    "crash-store-db": "1.3.1",
+    "error-receiver": "1.8.0",
     "express": "4.13.3",
     "lazy-ass": "1.0.0",
     "nconf": "0.8.2"
